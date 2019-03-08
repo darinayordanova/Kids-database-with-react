@@ -8,11 +8,11 @@ import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import logo from '../../kidsLogo.png';
-console.log(logo);
+
 const Navigation = () => (
   <AuthUserContext.Consumer>
     {authUser =>
-      authUser && !authUser.roles.includes(ROLES.BANED) ? (
+      authUser && !authUser.roles.includes(ROLES.BANNED) ? (
         <NavigationAuth authUser={authUser} />
       ) : (
           <NavigationNonAuth />

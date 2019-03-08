@@ -40,7 +40,7 @@ class AdminPage extends Component {
 
   render() {
     const { users, loading } = this.state;
-
+    
     return (
       <div className="content">
         <h1>Admin</h1>
@@ -63,13 +63,13 @@ const UserList = ({ users }) => (
         <th>Username</th>
         <th>E-mail</th>
         <th>User ID</th>
-        <th>Ban User</th>
+        {/* <th>Ban User</th> */}
       </tr>
     </thead>
     <tbody>
       {users.map(user => (
         
-        <tr key={user.uid} className={(user.roles.includes(ROLES.ADMIN)? 'admin' : (user.roles.includes(ROLES.BANED)) ? 'ban': 'user')}>
+        <tr key={user.uid} className={(user.roles.includes(ROLES.ADMIN)? 'admin' : (user.roles.includes(ROLES.BANNED)) ? 'ban': 'user')}>
           <td>
           {user.username}
           </td>
@@ -79,10 +79,10 @@ const UserList = ({ users }) => (
           <td>
           {user.uid}
           </td>
-          <td>
+          {/* <td>
           {(!user.roles.includes(ROLES.BANED)) ?
       (<Button variant="danger" onClick={() => user.roles.push(ROLES.ADMIN)}>BANana me </Button>):(<p> This user is bananed</p>)}
-          </td>
+          </td> */}
         </tr>
       ))}
     </tbody>

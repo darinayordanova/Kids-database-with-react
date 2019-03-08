@@ -19,8 +19,8 @@ class Firebase {
     this.db = app.database();
   }
 
-  // *** Auth API ***
 
+  // *** Auth API ***
   doCreateUserWithEmailAndPassword = (email, password) =>
     this.auth.createUserWithEmailAndPassword(email, password);
 
@@ -34,8 +34,8 @@ class Firebase {
   doPasswordUpdate = password =>
     this.auth.currentUser.updatePassword(password);
 
-  // *** Merge Auth and DB User API *** //
 
+  // *** Merge Auth and User API *** //
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged(authUser => {
       if (authUser) {
@@ -63,11 +63,17 @@ class Firebase {
       }
     });
 
-  // *** User API ***
 
+  // *** User API ***
   user = uid => this.db.ref(`users/${uid}`);
 
   users = () => this.db.ref('users');
+
+
+  // *** Course API ***
+  course = uid => this.db.ref(`courses/${uid}`);
+
+  courses = () => this.db.ref('courses');
 }
 
 export default Firebase;

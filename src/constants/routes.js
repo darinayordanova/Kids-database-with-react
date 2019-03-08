@@ -4,4 +4,6 @@ export const SIGN_IN = '/signin';
 export const COURSES = '/courses';
 export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
-export const ADMIN_DETAILS = '/admin/:id';
+export const ADD_COURSE = '/addcourse';
+export const COURSE_VIEW ='/courses/:id';
+//export const LESSONS_VIEW ='/courses/:id';

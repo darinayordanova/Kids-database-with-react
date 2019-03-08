@@ -20,6 +20,7 @@ const INITIAL_STATE = {
   passwordOne: '',
   passwordTwo: '',
   isAdmin: false,
+  courses: [],
   error: null,
 };
 
@@ -37,7 +38,6 @@ class SignUpFormBase extends Component {
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
-      courses.push()
     }
     else{
       roles.push(ROLES.USER);

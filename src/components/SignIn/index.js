@@ -8,6 +8,7 @@ import { SignUpLink } from '../SignUp';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
+
 const SignInPage = () => (
   <div className="content">
     <h1>SignIn</h1>
@@ -37,6 +38,7 @@ class SignInFormBase extends Component {
       .then(() => {
         this.setState({ ...INITIAL_STATE });
         this.props.history.push(ROUTES.ACCOUNT);
+        
       })
       .catch(error => {
         this.setState({ error });
@@ -79,6 +81,7 @@ class SignInFormBase extends Component {
         </Button>
 
         {error && <p>{error.message}</p>}
+        
       </Form>
     );
   }
