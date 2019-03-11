@@ -34,7 +34,6 @@ class SignUpFormBase extends Component {
   onSubmit = event => {
     const { username, email, passwordOne, isAdmin } = this.state;
     const roles = [];
-    const courses = [];
 
     if (isAdmin) {
       roles.push(ROLES.ADMIN);
@@ -53,11 +52,11 @@ class SignUpFormBase extends Component {
             username,
             email,
             roles,
-            courses,
           })
           .then(() => {
             this.setState({ ...INITIAL_STATE });
             this.props.history.push(ROUTES.COURSES);
+            
           })
           .catch(error => {
             this.setState({ error });

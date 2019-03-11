@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAuthorization, AuthUserContext } from '../Session';
-import { Link } from 'react-router-dom';
+import { Switch, Route, Link, Router } from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
@@ -12,29 +12,36 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 
 const CoursesPage = () => (
-  <AuthUserContext.Consumer>
-    {authUser =>
-      authUser.roles.includes(ROLES.ADMIN) ? (
+  <div className="content">
 
-        <div className="content">
-          <Courses />
-          <Link to={ROUTES.ADD_COURSE}><FontAwesomeIcon icon="plus-circle" size='3x' /></Link>
-        </div>
-      ) : (
-          <div className="content">
-
-
-            <Courses />
-          </div>
-        )
-    }
-  </AuthUserContext.Consumer>
-
-
-
+    <Route exact path={ROUTES.COURSES} component={CoursesList} />
+    <Route path={ROUTES.COURSE_VIEW} component={CourseItemView} />
+  </div>
 );
 
+class CoursesList extends Component {
+  render() {
+    return (
+      <AuthUserContext.Consumer>
+        {authUser =>
+          authUser.roles.includes(ROLES.ADMIN) ? (
 
+            <div id="coursesList">
+              <h1>Courses</h1>
+              <Courses />
+              <Link to={ROUTES.ADD_COURSE}><FontAwesomeIcon icon="plus-circle" size='3x' /></Link>
+            </div>
+          ) : (
+              <div id="coursesList">
+                <h1>Courses</h1>
+                <Courses />
+              </div>
+            )
+        }
+      </AuthUserContext.Consumer>
+    );
+  }
+}
 class CoursesBase extends Component {
   constructor(props) {
     super(props);
@@ -76,12 +83,12 @@ class CoursesBase extends Component {
   }
 
   onRemoveCourse = (uid) => {
-    console.log(this.props.firebase.course(uid))
+    
     this.props.firebase.course(uid).remove();
   }
 
   onEditCourse = (course, title, description, level) => {
-    console.log(course.uid);
+    
     this.props.firebase.course(course.uid).set({
       ...course,
       title,
@@ -128,6 +135,7 @@ const CourseList = ({ courses, onRemoveCourse, onEditCourse }) => (
   </div>
 );
 
+
 class CourseItem extends Component {
   constructor(props) {
     super(props);
@@ -151,10 +159,14 @@ class CourseItem extends Component {
     this.setState({ [event.target.name]: event.target.value });
   };
   onSaveEditCourse = () => {
-    console.log(this.props.course)
+    
     this.props.onEditCourse(this.props.course, this.state.editTitle, this.state.editDescription, this.state.editLevel);
 
     this.setState({ editMode: false });
+  }
+  showThisCourseAndHideCoursesList() {
+    
+    
   }
   render() {
     const { course, onRemoveCourse } = this.props;
@@ -205,8 +217,9 @@ class CourseItem extends Component {
                 </Form>
               ) : (
                   <div className="courseTitileAndDescr">
-                    <h3>{course.title}</h3> 
-                    <p>{course.description}</p>
+                    <h3>{course.title}</h3>
+                    
+                    <Link to={{ pathname: `${ROUTES.COURSES}/${course.uid}`, state: { course }, }} onClick={this.showThisCourseAndHideCoursesList}> View</Link>
                   </div>)}
               <div className="buttonsCourse">
                 {editMode ? (
@@ -226,8 +239,9 @@ class CourseItem extends Component {
           ) : (
               <div className={'level' + course.level}>
                 <div className="courseTitileAndDescr">
-                  <h3>{course.title}</h3> 
-                  <p>{course.description}</p>
+                  <h3>{course.title}</h3>
+                  {/* <p>{course.description}</p> */}
+                  <Link to={{ pathname: `${ROUTES.COURSES}/${course.uid}`, state: { course }, }} onClick={this.showThisCourseAndHideCoursesList}> View</Link>
                 </div>
               </div>
 
@@ -239,8 +253,58 @@ class CourseItem extends Component {
 
   }
 }
-const Courses = withFirebase(CoursesBase);
 
+class CourseItemBase extends Component {
+
+  constructor(props) {
+    
+    super(props);
+
+    this.state = {
+      loading: false,
+      course: props.location.state,
+    };
+
+  }
+
+  componentDidMount() {
+    if (this.state.course) {
+      return;
+    }
+    this.setState({ loading: true });
+
+    this.props.firebase.course(this.props.match.params.id).on('value', snapshot => {
+      this.setState({
+        course: snapshot.val(),
+        loading: false,
+      })
+      
+    })
+
+  }
+
+  componentWillUnmount() {
+    this.props.firebase.course(this.props.match.params.id).off();
+  }
+
+  
+  render() {
+    const { course, loading } = this.state;
+
+    return (
+      <div className="content">
+        <div id="ViewCourse">
+          <h1>{this.props.location.state.course.title}</h1>
+          <p>{this.props.location.state.course.description}</p>
+
+          <Link to={ROUTES.COURSES}><Button >Back to courses</Button></Link>
+        </div>
+      </div>
+    )
+  }
+}
+const Courses = withFirebase(CoursesBase);
+const CourseItemView = withFirebase(CourseItemBase);
 const condition = authUser => !!authUser;
 
 export default withAuthorization(condition)(CoursesPage);

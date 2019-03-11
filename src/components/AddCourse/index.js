@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { withAuthorization, AuthUserContext } from '../Session';
-import { Switch, Route, Link } from 'react-router-dom';
+import { Switch, Route, Link, Redirect} from 'react-router-dom';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { withFirebase } from '../Firebase';
@@ -120,9 +120,12 @@ const AddCourse=()=>(
           description: this.state.description,
           level: this.state.level,
         });
+        
         this.setState({ title: '', description: '', level:'Choose Level...' });
-        //location.href='/courses';
+        this.props.history.push(ROUTES.COURSES);
         event.preventDefault();
+        
+        
       }
     }
 

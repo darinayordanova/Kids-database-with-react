@@ -6,4 +6,3 @@ export const ACCOUNT = '/account';
 export const ADMIN = '/admin';
 export const ADD_COURSE = '/addcourse';
 export const COURSE_VIEW ='/courses/:id';
-//export const LESSONS_VIEW ='/courses/:id';
