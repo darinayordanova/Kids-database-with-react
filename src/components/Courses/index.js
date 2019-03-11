@@ -219,7 +219,7 @@ class CourseItem extends Component {
                   <div className="courseTitileAndDescr">
                     <h3>{course.title}</h3>
                     
-                    <Link to={{ pathname: `${ROUTES.COURSES}/${course.uid}`, state: { course }, }} onClick={this.showThisCourseAndHideCoursesList}> View</Link>
+                    <span className="link"><Link to={{ pathname: `${ROUTES.COURSES}/${course.uid}`, state: { course }, }} onClick={this.showThisCourseAndHideCoursesList}> View</Link></span>
                   </div>)}
               <div className="buttonsCourse">
                 {editMode ? (
@@ -295,6 +295,8 @@ class CourseItemBase extends Component {
       <div className="content">
         <div id="ViewCourse">
           <h1>{this.props.location.state.course.title}</h1>
+          <h3>Level {this.props.location.state.course.level}</h3>
+          
           <p>{this.props.location.state.course.description}</p>
 
           <Link to={ROUTES.COURSES}><Button >Back to courses</Button></Link>

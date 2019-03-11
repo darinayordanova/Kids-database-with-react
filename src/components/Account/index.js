@@ -8,8 +8,9 @@ const Account = () => (
     
     {authUser => (
       <div className="content">
-        <h2>Hello {authUser.username}!</h2>
-        <h1>E-mail: {authUser.email}</h1>
+        <h1>Hello {authUser.username}!</h1>
+        <h3>E-mail: {authUser.email}</h3>
+        <h3>Role: {authUser.roles}</h3>
         
       </div>
     )}

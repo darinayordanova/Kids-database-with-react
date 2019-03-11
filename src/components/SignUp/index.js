@@ -133,13 +133,13 @@ class SignUpFormBase extends Component {
           />
           </Form.Group>
         <label>
-          Admin:
+          {/* Admin:
           <input
             name="isAdmin"
             type="checkbox"
             checked={isAdmin}
             onChange={this.onChangeCheckbox}
-          />
+          /> */}
         </label>
         <Button disabled={isInvalid} type="submit">
           Sign Up
@@ -154,7 +154,7 @@ class SignUpFormBase extends Component {
 
 const SignUpLink = () => (
   <p>
-    Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
+    Don't have an account? <span className="link"><Link to={ROUTES.SIGN_UP}>Sign Up</Link></span>
   </p>
 );
 const SignUpForm = withRouter(withFirebase(SignUpFormBase));

@@ -122,7 +122,6 @@ const AddCourse=()=>(
         });
         
         this.setState({ title: '', description: '', level:'Choose Level...' });
-        this.props.history.push(ROUTES.COURSES);
         event.preventDefault();
         
         

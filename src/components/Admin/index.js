@@ -81,7 +81,7 @@ const UserList = ({ users }) => (
           </td>
           {/* <td>
           {(!user.roles.includes(ROLES.BANED)) ?
-      (<Button variant="danger" onClick={() => user.roles.push(ROLES.ADMIN)}>BANana me </Button>):(<p> This user is bananed</p>)}
+      (<Button variant="danger" onClick={() => roles.push(ROLES.ADMIN)}>BANana me </Button>):(<p> This user is bananed</p>)}
           </td> */}
         </tr>
       ))}
