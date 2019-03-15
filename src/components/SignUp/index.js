@@ -55,7 +55,7 @@ class SignUpFormBase extends Component {
           })
           .then(() => {
             this.setState({ ...INITIAL_STATE });
-            this.props.history.push(ROUTES.COURSES);
+            this.props.history.push(ROUTES.ACCOUNT);
             
           })
           .catch(error => {

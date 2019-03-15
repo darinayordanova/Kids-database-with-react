@@ -307,6 +307,6 @@ class CourseItemBase extends Component {
 }
 const Courses = withFirebase(CoursesBase);
 const CourseItemView = withFirebase(CourseItemBase);
-const condition = authUser => !!authUser;
+const condition = authUser => !!authUser && !authUser.roles.includes(ROLES.BANNED);
 
 export default withAuthorization(condition)(CoursesPage);

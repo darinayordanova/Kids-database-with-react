@@ -1,6 +1,7 @@
 import React from 'react';
 import { AuthUserContext, withAuthorization } from '../Session';
 import { withFirebase } from '../Firebase';
+import * as ROLES from '../../constants/roles';
 
 
 const Account = () => (
@@ -18,6 +19,6 @@ const Account = () => (
   </AuthUserContext.Consumer>
 );
 
-const condition = authUser => !!authUser;
+const condition = authUser => !!authUser && !authUser.roles.includes(ROLES.BANNED);
 
 export default withAuthorization(condition)(Account);

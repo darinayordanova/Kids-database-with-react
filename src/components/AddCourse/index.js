@@ -129,7 +129,7 @@ const AddCourse=()=>(
     }
 
 const condition = authUser =>
-  authUser && authUser.roles.includes(ROLES.ADMIN);
+  authUser && authUser.roles.includes(ROLES.ADMIN) && !authUser.roles.includes(ROLES.BANNED);;
 
   const Courses = withFirebase(CoursesBase);
 
